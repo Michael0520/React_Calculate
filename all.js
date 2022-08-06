@@ -80,7 +80,7 @@ function App() {
           可以換算成以下類別:
           {results.map((result, index) => (
             <li key={index} className="ml-5 mt-2">
-              {result.name}：{result.newMoney ? result.newMoney : null}
+              {result.name}：{result.newMoney ? result.newMoney : 0}
             </li>
           ))}
         </ul>
