@@ -45,7 +45,7 @@ function App() {
         return {
           name: result.name,
           rate: result.rate,
-          newMoney: money / result.rate,
+          newMoney: (money / result.rate).toFixed(2),
         };
       })
     );
@@ -80,8 +80,7 @@ function App() {
           可以換算成以下類別:
           {results.map((result, index) => (
             <li key={index} className="ml-5 mt-2">
-              {result.name}：
-              {result.newMoney ? result.newMoney.toFixed(0) : null}
+              {result.name}：{result.newMoney ? result.newMoney : null}
             </li>
           ))}
         </ul>
