@@ -4,27 +4,27 @@ function App() {
     {
       name: "日幣",
       rate: 0.2128,
-      newMoney: null,
+      newMoney: 0,
     },
     {
       name: "美金",
       rate: 29.555,
-      newMoney: null,
+      newMoney: 0,
     },
     {
       name: "澳幣",
       rate: 20.31,
-      newMoney: null,
+      newMoney: 0,
     },
     {
       name: "韓幣",
       rate: 0.02124,
-      newMoney: null,
+      newMoney: 0,
     },
     {
       name: "印尼幣",
       rate: 0.00168,
-      newMoney: null,
+      newMoney: 0,
     },
   ];
   // 處理 money 的 state
@@ -40,17 +40,16 @@ function App() {
   // 按下計算按鈕後觸發事件
   // 用 map 把目前的 results 陣列解開並回傳計算後的 money
   const handleCalculate = (e) => {
+    e.preventDefault();
     setResults(
       results.map((result) => {
         return {
           name: result.name,
           rate: result.rate,
-          newMoney: money / result.rate,
+          newMoney: (money / result.rate).toFixed(2),
         };
       })
     );
-    setMoney();
-    e.preventDefault();
   };
 
   return (
@@ -80,8 +79,7 @@ function App() {
           可以換算成以下類別:
           {results.map((result, index) => (
             <li key={index} className="ml-5 mt-2">
-              {result.name}：
-              {result.newMoney ? result.newMoney.toFixed(0) : null}
+              {result.name}：{result.newMoney ? result.newMoney : null}
             </li>
           ))}
         </ul>
