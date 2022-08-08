@@ -1,0 +1,47 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build:
+    name: Build and deploy gh-pages
+    env:
+      commit_secret: ${{secrets.COMMIT_SECRET}}
+      USER_NAME   : Michael0520
+      USER_EMAIL  : po2319987@gmail.com
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '10.15.1'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install Yarn
+        run: npm install -g yarn
+
+      - name: Yarn Install
+        run: yarn
+
+      - name: deploy
+        run: |
+          rm -rf node_modules/.cache
+          yarn build
+          yarn export
+          touch out/.nojekyll
+          cd ./out
+          git init
+          git config --global user.email po2319987@gmail.com
+          git config --global user.name Michael0520
+          git status
+          git remote add origin https://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@github.com/Michael0520/React_Calculate.git
+          git checkout -b gh-pages
+          git add --all
+          git commit -m "Deploy react.js to gh-pages" 
+          git push origin gh-pages -f
+          echo 🤘 deploy gh-pages complete.
